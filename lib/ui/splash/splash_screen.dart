@@ -46,6 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
               style: GoogleFonts.anton(
                 letterSpacing: .6,
                 color: Colors.grey.shade700,
+                fontSize: 30,
               ),
             ),
             SizedBox(height: height * 0.04),

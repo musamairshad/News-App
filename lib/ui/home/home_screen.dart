@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/view_models/news_view_model.dart';
 
@@ -14,6 +15,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.sizeOf(context).width * 1;
+    final height = MediaQuery.sizeOf(context).height * 1;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -33,8 +36,28 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      body: const Column(
-        children: [],
+      body: ListView(
+        children: [
+          SizedBox(
+            height: height * 0.55,
+            width: width,
+            child: FutureBuilder(
+                future: _newsViewModel.fetchNewsChannelHeadlines(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: SpinKitCircle(
+                        color: Colors.blue,
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("News Data"),
+                    );
+                  }
+                }),
+          ),
+        ],
       ),
     );
   }
